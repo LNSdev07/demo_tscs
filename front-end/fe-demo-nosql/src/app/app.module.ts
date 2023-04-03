@@ -12,6 +12,10 @@ import { PanelModule } from 'primeng/panel';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TableModule } from 'primeng/table';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { InterceptorServiceInterceptor } from './interceptor/interceptor-service.interceptor';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,9 +31,13 @@ import { TableModule } from 'primeng/table';
     PanelModule,
     BrowserAnimationsModule,
     NoopAnimationsModule,
-    TableModule
+    TableModule,
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptorServiceInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
