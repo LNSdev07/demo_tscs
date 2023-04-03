@@ -1,9 +1,11 @@
 package com.example.bedemonosql.dto;
 
+import com.example.bedemonosql.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.BeanUtils;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,6 +16,8 @@ public class UserDTO {
     private String id;
 
     private String fullName;
+
+    private String password;
 
     private String username;
 
@@ -26,4 +30,9 @@ public class UserDTO {
     private String address;
 
     private String role;
+
+    public UserDTO(User user){
+        BeanUtils.copyProperties(user, this);
+    }
+
 }

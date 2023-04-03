@@ -4,25 +4,19 @@
   <h2 class="active"> sign in </h2>
 
   <h2 class="nonactive" style="cursor: pointer;" [routerLink]="['/signup']" routerLinkActive="router-link-active" > sign up </h2>
-  <form>
-   
-    
-
-    <input type="text" class="text" name="username">
+  <form [formGroup]="FormLogin">
+  
+    <input formControlName="username" type="text" class="text" name="username">
      <span style="color: black;">username</span>
-
     <br>
     
     <br>
 
-    <input type="password" class="text" name="password">
+    <input formControlName="password" type="password" class="text" name="password">
     <span>password</span>
     <br>
-
-    <input type="checkbox" id="checkbox-1-1" class="custom-checkbox" />
-    <label for="checkbox-1-1">Keep me Signed in</label>
     
-    <button class="signin">
+    <button [disabled]="this.FormLogin.invalid" class="signin" (click)="login()">
       Sign In
     </button>
 

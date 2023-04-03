@@ -1,8 +1,7 @@
 <app-header></app-header>
 <div class="mt-3" >
     <div class="flex justify-content-end">
-      <button pButton type="button"  label="Create User" class="p-button-success mr-2" ></button>
-      <button label="Delete User"  pButton type="button" class="p-button-danger"></button>
+      <button pButton type="button" (click)=" refresh()"  label="Refresh" class="p-button-success mr-2 mb-2" icon="pi pi-refresh" ></button>
     </div>
     <!-- [value] ="customers" -->
     <!-- (onLazyLoad)="reloadTable($event)" -->
@@ -15,28 +14,29 @@
     [tableStyle]="{ 'min-width': '50rem' }"
     dataKey="id"
     [paginator]="true"
+    [totalRecords]="totalRecords"
     [rows]="5"
     [showCurrentPageReport]="true"
     styleClass="p-datatable-gridlines"
     [rowHover]="true"
+    [value] ="users"
     [lazy]="true" 
+    (onLazyLoad)="reloadTable($event)"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} Users"
     [rowsPerPageOptions]="[5, 10, 15]"
     sortMode="single"
-    sortField=""
+    sortField="username"
    
     [resizableColumns]="true"
   >
     <ng-template pTemplate="header">
       <tr>
-        <th style="width: 3rem">
-          <p-tableHeaderCheckbox  ></p-tableHeaderCheckbox>
-        </th>
+        <th>STT</th>
         <th style="min-width: 100px" pSortableColumn="fullName">
           FullName<p-sortIcon field="fullName"></p-sortIcon>
         </th>
-        <th style="min-width: 100px" pSortableColumn="userName">
-          UserName<p-sortIcon field="userName"></p-sortIcon>
+        <th style="min-width: 100px" pSortableColumn="username">
+          UserName<p-sortIcon field="username"></p-sortIcon>
         </th>
         <th style="min-width: 180px" pSortableColumn="address">
           Address<p-sortIcon field="address"></p-sortIcon>
@@ -44,32 +44,24 @@
         <th style="min-width: 180px" pSortableColumn="email">
           Email<p-sortIcon field="email"></p-sortIcon>
         </th>
-        <th style="min-width: 180px" pSortableColumn="phoneNumber">
-          PhoneNumber<p-sortIcon field="phoneNumber"></p-sortIcon>
+        <th style="min-width: 180px" pSortableColumn="phone">
+          PhoneNumber<p-sortIcon field="phone"></p-sortIcon>
         </th>
         <th style="min-width: 180px" pSortableColumn="gender">
           Gender<p-sortIcon field="gender"></p-sortIcon>
         </th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-customers>
+    <ng-template pTemplate="body" let-user let-i="rowIndex">
       <tr>
-        <!-- <td><p-tableCheckbox [value]="customers"></p-tableCheckbox></td>
-        <td style="min-width: 100px">{{ customers.fullName }}</td>
-        <td style="min-width: 100px">{{ customers.userName }}</td>
-        <td *ngIf="customers.status === 1" style="min-width: 180px;">
-          <button  style="opacity: 1;" [disabled]="true" pButton pRipple type="button" label="Enable" class="p-button-outlined p-button-success"></button>
-        </td>
-        <td *ngIf="customers.status === 0" style="min-width: 180px; ">
-          <button style="opacity: 1;" [disabled]="true" pButton pRipple type="button" label="Disable"class="p-button-outlined p-button-danger"></button>
-        </td>
-        <td style="min-width: 180px">{{ customers.address }}</td>
-        <td style="min-width: 180px">{{ customers.email }}</td>
-        <td style="min-width: 180px">{{ customers.phoneNumber }}</td>
-        <td *ngIf="customers.gender === 0" style="min-width: 180px">Nữ</td>
-        <td *ngIf="customers.gender === 1" style="min-width: 180px">Nam</td>
-        <td style="min-width: 180px">{{ customers.createdDate | date: 'dd/MM/yyyy hh:mm:ss' }}</td>
-        <td style="min-width: 180px">{{ customers.updatedDate | date: 'dd/MM/yyyy hh:mm:ss' }}</td> -->
+        <td>{{i+1}}</td>
+        <td style="min-width: 100px">{{ user.fullName }}</td>
+        <td style="min-width: 100px">{{ user.username }}</td>
+        <td style="min-width: 100px">{{ user.address }}</td>
+        <td style="min-width: 100px">{{ user.email }}</td>
+        <td style="min-width: 100px">{{ user.phone }}</td>
+        <td *ngIf="user.gender === 1" style="min-width: 100px">Nam</td>
+        <td *ngIf="user.gender === 0" style="min-width: 100px">Nữ</td>
      </tr>
   </ng-template>
   <ng-template   pTemplate="emptymessage">
